@@ -9,4 +9,5 @@ import ar.com.ada.api.buques.entities.Buque;
 @Repository
 public interface BuqueRepository extends MongoRepository<Buque, ObjectId> {
     
+    Buque findBy_id(ObjectId id);
 }

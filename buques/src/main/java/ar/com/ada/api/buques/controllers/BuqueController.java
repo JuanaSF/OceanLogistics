@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import ar.com.ada.api.buques.entities.Buque;
+import ar.com.ada.api.buques.models.request.ViajeRequest;
 import ar.com.ada.api.buques.models.response.GenericResponse;
 import ar.com.ada.api.buques.services.BuqueService;
 
@@ -41,6 +42,24 @@ public class BuqueController {
         List<Buque> listaBuques = buqueService.listarBuques();
 
         return ResponseEntity.ok(listaBuques);
+    }
+
+    @PostMapping("/buques/{id}/viajes")
+    public ResponseEntity<GenericResponse> crearViaje(@PathVariable String id, @RequestBody ViajeRequest infoViaje) {
+
+        boolean resultado = buqueService.crearViaje(id, infoViaje.fechaViaje, infoViaje.fechaSalida,
+                infoViaje.fechaLlegada);
+        GenericResponse resp = new GenericResponse();
+
+        if (resultado) {
+            resp.isOk = true;
+            resp.message = "El viaje se grabo correctamente";
+            return ResponseEntity.ok(resp);
+        }
+
+        resp.isOk = false;
+        resp.message = "No se pudo grabar el viaje";
+        return ResponseEntity.badRequest().body(resp);
     }
     
 }

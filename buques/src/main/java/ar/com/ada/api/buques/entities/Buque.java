@@ -48,6 +48,10 @@ public class Buque {
         this.viajes = viajes;
     }
 
+    public void agregarViaje(Viaje viaje) {
+        this.viajes.add(viaje);
+    }
+
     public Viaje buscarViaje(Date fecha) {
 
         for (Viaje viaje : viajes) {
