@@ -10,4 +10,5 @@ import ar.com.ada.api.buques.entities.Puerto;
 public interface PuertoRepository extends MongoRepository<Puerto, ObjectId> {
 
     Puerto findBy_id(ObjectId id);    
+    Puerto findByNumero(Integer numero);
 }

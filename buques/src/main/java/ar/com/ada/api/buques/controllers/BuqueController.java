@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import ar.com.ada.api.buques.entities.Buque;
+import ar.com.ada.api.buques.entities.Viaje.ResultadoEnum;
+import ar.com.ada.api.buques.models.request.ContenedorRequest;
 import ar.com.ada.api.buques.models.request.ViajeRequest;
 import ar.com.ada.api.buques.models.response.GenericResponse;
 import ar.com.ada.api.buques.services.BuqueService;
@@ -59,6 +61,25 @@ public class BuqueController {
 
         resp.isOk = false;
         resp.message = "No se pudo grabar el viaje";
+        return ResponseEntity.badRequest().body(resp);
+    }
+
+    @PostMapping("/buques/{id}/viajes/contenedores")
+    public ResponseEntity<GenericResponse> cargarContenedor(@PathVariable String id,
+            @RequestBody ContenedorRequest contenedor) {
+
+        ResultadoEnum resultado = buqueService.cargarContenedor(id, contenedor.fechaViaje, contenedor.contenedorId,
+                contenedor.peso, contenedor.numeroPuerto);
+        GenericResponse resp = new GenericResponse();
+
+        if (resultado == ResultadoEnum.CARGA_EXITOSA) {
+            resp.isOk = true;
+            resp.message = "El contenedor se cargo correctamente";
+            return ResponseEntity.ok(resp);
+        }
+
+        resp.isOk = false;
+        resp.message = "Hubo un error al cargar el contenedor "+resultado;
         return ResponseEntity.badRequest().body(resp);
     }
     

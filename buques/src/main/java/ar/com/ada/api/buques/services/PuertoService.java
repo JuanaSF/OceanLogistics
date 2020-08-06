@@ -31,4 +31,8 @@ public class PuertoService {
     public List<Puerto> listarPuertos() {
         return repo.findAll();
     }
+
+    public Puerto buscarPorNumero(Integer numeroPuerto) {
+        return repo.findByNumero(numeroPuerto);
+    }
 }

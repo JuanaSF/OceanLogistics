@@ -52,4 +52,11 @@ public class Viaje {
         return true;
     }
 
+    public enum ResultadoEnum {
+        CARGA_EXITOSA,
+        CARGA_MAXIMA_SUPERDA,
+        PUERTO_NO_ENCONTRADO,
+        BUQUE_INEXISTENTE,
+        VIAJE_NO_ENCONTRADO
+	}
 }
